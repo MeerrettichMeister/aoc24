@@ -47,19 +47,27 @@ console.log(middelsum);
 const incorrect:number[][] = updateList.filter(update => toFilter.indexOf(update) < 0);
 for (let i = 0; i < incorrect.length; i++) {
     const incorrectUpdate = incorrect[i];
-    for (let j = 0; j < incorrectUpdate.length-1; j++) {
-        const preCondition = incorrectUpdate[j];
-        for (let k = j+1; k < incorrectUpdate.length; k++) {
-            const postCondition = incorrectUpdate[k]
-            const invalid = ruleList.find(rule => rule.before === postCondition && rule.after === preCondition)
-            if (invalid) {
-                const temp = incorrectUpdate[j]
-                incorrectUpdate[j] = incorrectUpdate[k]
-                incorrectUpdate[k] = temp;
-                j = 0;
+    let finished = false;
+    while (!finished) {
+        let changed = false;
+        for (let j = 0; j < incorrectUpdate.length; j++) {
+            for (let k = j + 1; k < incorrectUpdate.length; k++) {
+                const pre = incorrectUpdate[j];
+                const post = incorrectUpdate[k];
+                const invalid = ruleList.find(rule => rule.before === post && rule.after === pre)
+                if (invalid) {
+                    const temp = incorrectUpdate[j]
+                    incorrectUpdate[j] = incorrectUpdate[k]
+                    incorrectUpdate[k] = temp;
+                    changed = true;
+                }
             }
         }
+        if (!changed) {
+            finished = true;
+        }
     }
+
 }
 middelsum = 0;
 for (let i = 0; i < incorrect.length; i++) {
