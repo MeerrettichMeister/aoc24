@@ -238,10 +238,6 @@ for (const point of path) {
     let outOfBounds = false;
     while (!outOfBounds) {
         let free = false;
-        if (visited[field.posisiton.y][field.posisiton.x].visited && visited[field.posisiton.y][field.posisiton.x].direction === field.dir) {
-            limit = true;
-            break;
-        }
         while (!free) {
             switch (field.dir) {
                 case "UP": {
@@ -277,6 +273,10 @@ for (const point of path) {
                     break;
                 }
             }
+        }
+        if (visited[field.posisiton.y][field.posisiton.x].visited && visited[field.posisiton.y][field.posisiton.x].direction === field.dir) {
+            limit = true;
+            break;
         }
         visited[field.posisiton.y][field.posisiton.x] = {visited: true, direction: field.dir}
         field.visited[field.posisiton.y][field.posisiton.x] = '?';
