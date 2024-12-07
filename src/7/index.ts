@@ -39,6 +39,7 @@ calculations.forEach(calculation => {
     }
 })
 console.log(calcualtable)
+let start = new Date().getTime();
 calcualtable = 0;
 calculations.forEach(calculation => {
     const operations = calculation.numbers.length-1;
@@ -68,3 +69,4 @@ calculations.forEach(calculation => {
     }
 })
 console.log(calcualtable)
+console.log("Took " + (new Date().getTime() - start))
